@@ -1,6 +1,7 @@
 import { Course } from 'src/course/course.entity';
+import { Student } from 'src/student/student.entity';
 import { Teacher } from 'src/teacher/teacher.entity';
-import { Entity, Column, PrimaryColumn, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToMany, OneToMany } from 'typeorm';
 
 @Entity()
 export class Group {
@@ -16,4 +17,7 @@ export class Group {
     {onDelete: 'NO ACTION', onUpdate: 'NO ACTION',},
   )
   courses?: Course[];
+
+  @OneToMany(() => Student, (student) => student.group)
+    students: Student[]
 }

@@ -9,6 +9,12 @@ import { Group } from './group/group.entity';
 import { CourseModule } from './course/course.module';
 import { TeacherModule } from './teacher/teacher.module';
 import { GroupModule } from './group/group.module';
+import { TaskModule } from './task/task.module';
+import { Task } from './task/task.entity';
+import { StudentModule } from './student/student.module';
+import { Student } from './student/student.entity';
+import { WorkModule } from './work/work.module';
+import { Work } from './work/work.entity';
 
 @Module({
   imports: [
@@ -19,14 +25,17 @@ import { GroupModule } from './group/group.module';
       username: 'postgres',
       password: 'postgres', 
       database: 'postgres',
-      entities: [Teacher, Course, Group], 
+      entities: [Teacher, Course, Group, Task, Student, Work], 
       synchronize: true,
       autoLoadEntities: true, 
     }),
     ScheduleModule.forRoot(),
     TeacherModule,
     CourseModule,
-    GroupModule
+    GroupModule,
+    TaskModule,
+    StudentModule,
+    WorkModule
   ],
   controllers: [AppController],
   providers: [AppService],

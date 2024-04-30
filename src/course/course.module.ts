@@ -7,6 +7,6 @@ import { Group } from 'src/group/group.entity';
 
 @Module({
   controllers: [CourseController],
-  imports: [TypeOrmModule.forFeature([Course, Teacher, Group])],
+  imports: [TypeOrmModule.forFeature([Course])],
 })
 export class CourseModule {}

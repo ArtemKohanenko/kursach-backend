@@ -1,6 +1,7 @@
 import { Group } from 'src/group/group.entity';
+import { Task } from 'src/task/task.entity';
 import { Teacher } from 'src/teacher/teacher.entity';
-import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 
 @Entity()
 export class Course {
@@ -46,5 +47,8 @@ export class Course {
       },
     })
     groups?: Group[];
+
+    @OneToMany(() => Task, (task) => task.course)
+    tasks: Task[]
 }
 
