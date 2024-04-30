@@ -10,3 +10,7 @@ docker-compose up -d
 ```
 nest start
 ```
+Заполнить БД искусственными данными:
+```
+npm run seed
+```
