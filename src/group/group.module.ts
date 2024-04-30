@@ -4,6 +4,6 @@ import { Group } from './group.entity';
 import { Course } from 'src/course/course.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Group, Course])],
+    imports: [TypeOrmModule.forFeature([Group])],
 })
 export class GroupModule {}
