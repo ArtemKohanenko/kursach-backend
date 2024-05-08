@@ -1,12 +1,11 @@
 import { Course } from 'src/course/course.entity';
 import { Student } from 'src/student/student.entity';
-import { Teacher } from 'src/teacher/teacher.entity';
 import { Entity, Column, PrimaryColumn, ManyToMany, OneToMany } from 'typeorm';
 
 @Entity()
 export class Group {
   @PrimaryColumn()
-  groupId: number;
+  id: number;
 
   @Column()
   name: string;

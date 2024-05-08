@@ -6,7 +6,7 @@ import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable, OneToMany } from 
 @Entity()
 export class Course {
   @PrimaryColumn()
-  courseId: number;
+  id: number;
 
   @Column()
   name: string;
@@ -22,11 +22,11 @@ export class Course {
       name: 'course_teacher',
       joinColumn: {
         name: 'courseId',
-        referencedColumnName: 'courseId',
+        referencedColumnName: 'id',
       },
       inverseJoinColumn: {
         name: 'teacherId',
-        referencedColumnName: 'teacherId',
+        referencedColumnName: 'id',
       },
     })
     teachers?: Teacher[];
@@ -39,11 +39,11 @@ export class Course {
       name: 'course_group',
       joinColumn: {
         name: 'courseId',
-        referencedColumnName: 'courseId',
+        referencedColumnName: 'id',
       },
       inverseJoinColumn: {
         name: 'groupId',
-        referencedColumnName: 'groupId',
+        referencedColumnName: 'id',
       },
     })
     groups?: Group[];

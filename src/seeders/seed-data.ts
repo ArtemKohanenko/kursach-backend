@@ -2,13 +2,15 @@ import { Course } from 'src/course/course.entity';
 import { Group } from 'src/group/group.entity';
 import { Student } from 'src/student/student.entity';
 import { Task } from 'src/task/task.entity';
-import { Teacher } from 'src/teacher/teacher.entity';
 import { Work } from 'src/work/work.entity';
 import { DataSource, In } from 'typeorm';
-import { COURSES_LIST, GROUPS_LIST, STUDENTS_LIST, TASKS_LIST, TEACHERS_LIST } from './data';
+import { COURSES_LIST, GROUPS_LIST, STUDENTS_LIST, TASKS_LIST, TEACHERS_LIST, USERS_LIST } from './data';
+import { Teacher } from 'src/teacher/teacher.entity';
+import { User } from 'src/user/user.entity';
 
 export async function seedData(dataSource: DataSource): Promise<void> {
 
+  const userRepository = dataSource.getRepository(User);
   const courseRepository = dataSource.getRepository(Course);
   const groupRepository = dataSource.getRepository(Group);
   const studentRepository = dataSource.getRepository(Student);
@@ -16,6 +18,12 @@ export async function seedData(dataSource: DataSource): Promise<void> {
   const teacherRepository = dataSource.getRepository(Teacher);
   const workRepository = dataSource.getRepository(Work);
 
+  for (const item of USERS_LIST) {
+    let user = userRepository.create(
+        item as unknown as User,
+    );
+    await userRepository.save(user);
+  }
   for (const item of COURSES_LIST) {
     let course = courseRepository.create(
         item as unknown as Course,
