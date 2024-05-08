@@ -5,7 +5,7 @@ import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
 @Entity()
 export class Work {
   @PrimaryColumn()
-  workId: number;
+  id: number;
 
   @Column()
   comment: string;

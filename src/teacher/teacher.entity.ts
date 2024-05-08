@@ -1,13 +1,11 @@
 import { Course } from 'src/course/course.entity';
-import { Entity, Column, PrimaryColumn, ManyToMany } from 'typeorm';
+import { User } from 'src/user/user.entity';
+import { Entity, Column, PrimaryColumn, ManyToMany, OneToOne } from 'typeorm';
 
 @Entity()
 export class Teacher {
   @PrimaryColumn()
-  teacherId: number;
-
-  @Column()
-  name: string;
+  id: number;
 
   @ManyToMany(
     () => Course,
