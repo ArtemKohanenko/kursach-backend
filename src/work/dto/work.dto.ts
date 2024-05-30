@@ -9,3 +9,8 @@ export class SendWorkDto{
 
     readonly studentId: number
 }
+
+export class changeWorkStatusDto{
+    readonly status: WorkStatus;
+    readonly id: number;
+}

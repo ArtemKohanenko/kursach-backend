@@ -18,4 +18,7 @@ export class Work {
 
   @ManyToOne(() => Student, (course) => course.works)
   student?: Student;
+
+  @Column()
+  status: WorkStatus;
 }
