@@ -15,7 +15,7 @@ export class WorkService {
     {}
 
     async createWork(workDto: SendWorkDto) {
-        const work = await this.workRepository.create({...workDto, id: 228});
+        const work = await this.workRepository.create({...workDto});
         await this.workRepository.save(work);
 
         return { data: work };

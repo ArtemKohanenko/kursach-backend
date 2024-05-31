@@ -1,10 +1,10 @@
 import { Course } from 'src/course/course.entity';
 import { Work } from 'src/work/work.entity';
-import { Entity, Column, PrimaryColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Task {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
