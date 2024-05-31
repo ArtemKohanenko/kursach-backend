@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
+import { WorkStatus } from "../type/WorkStatusEnum";
 
 export class SendWorkDto{
     readonly comment: string

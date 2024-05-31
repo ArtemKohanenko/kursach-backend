@@ -1,12 +1,7 @@
-enum WorkStatus {
-    отклонено = -1,
-    не_проверено = 0,
-    принято = 1,
-    просматривается = 2,
-    проверяется = 3,    
-  }
-  
-  
-  
-  
-  
+export enum WorkStatus {
+  rejected = 'rejected',
+  unchecked = 'unchecked',
+  accepted = 'accepted',
+  viewing = 'viewing',
+  checked = 'checked',    
+}
