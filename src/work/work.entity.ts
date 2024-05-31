@@ -1,12 +1,12 @@
 import { Student } from 'src/student/student.entity';
 import { Task } from 'src/task/task.entity';
-import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { WorkStatus } from './type/WorkStatusEnum';
 
 @Entity()
 export class Work {
-  @PrimaryColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   comment: string;

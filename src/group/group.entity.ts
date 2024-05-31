@@ -1,10 +1,10 @@
 import { Course } from 'src/course/course.entity';
 import { Student } from 'src/student/student.entity';
-import { Entity, Column, PrimaryColumn, ManyToMany, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Group {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
