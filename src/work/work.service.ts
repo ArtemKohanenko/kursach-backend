@@ -6,6 +6,8 @@ import { Work } from './work.entity';
 import { TaskService } from 'src/task/task.service';
 import { StudentService } from 'src/student/student.service';
 import { WorkStatus } from './type/WorkStatusEnum';
+import { error } from 'console';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class WorkService {
@@ -35,6 +37,17 @@ export class WorkService {
                 id: id
             }
         });
+    }
+
+    async getAllViewingWork(status: WorkStatus): Promise<Work[] | undefined> {
+        if (status != 'viewing'){
+            throwError;
+        }
+        return await this.workRepository.find({
+            where: {
+                status: status
+            }
+        });        
     }
 
     async changeStatus(newStatus: changeWorkStatusDto) {        

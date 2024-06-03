@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Request } from '@nestjs/common';
 import { SendWorkDto, changeWorkStatusDto } from './dto/work.dto';
 import { WorkService } from './work.service';
+import { WorkStatus } from './type/WorkStatusEnum';
 
 @Controller('work')
 export class WorkController {
@@ -20,5 +21,10 @@ export class WorkController {
     @Post('changeStatus')
     async changeWorkStatus(@Body() changeWorkStatus: changeWorkStatusDto) {
         return await this.workService.changeStatus(changeWorkStatus);
+    }
+
+    @Get('getAllViewingWork')
+    async getAllViewingWork(@Body() status: WorkStatus) {
+        return await this.workService.getAllViewingWork(status);
     }
 }
