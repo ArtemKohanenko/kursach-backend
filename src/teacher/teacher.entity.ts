@@ -10,7 +10,7 @@ export class Teacher {
   @ManyToMany(
     () => Course,
     course => course.teachers,
-    {onDelete: 'NO ACTION', onUpdate: 'NO ACTION',},
+    {onDelete: "CASCADE", onUpdate: 'NO ACTION' },
   )
   courses?: Course[];
 }

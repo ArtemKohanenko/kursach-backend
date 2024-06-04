@@ -13,10 +13,10 @@ export class Group {
   @ManyToMany(
     () => Course,
     course => course.groups,
-    {onDelete: 'NO ACTION', onUpdate: 'NO ACTION',},
+    {onDelete: 'NO ACTION', onUpdate: 'NO ACTION'},
   )
   courses?: Course[];
 
-  @OneToMany(() => Student, (student) => student.group)
+  @OneToMany(() => Student, (student) => student.group, {onDelete: "CASCADE"})
     students: Student[]
 }

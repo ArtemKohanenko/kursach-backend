@@ -17,7 +17,7 @@ export class Course {
   @ManyToMany(
     () => Teacher, 
     teacher => teacher.courses, 
-    {onDelete: 'NO ACTION', onUpdate: 'NO ACTION'})
+    {onDelete: "CASCADE", onUpdate: 'NO ACTION', cascade: true })
     @JoinTable({
       name: 'course_teacher',
       joinColumn: {
@@ -34,7 +34,7 @@ export class Course {
   @ManyToMany(
     () => Group, 
     group => group.courses, 
-    {onDelete: 'NO ACTION', onUpdate: 'NO ACTION'})
+    {onDelete: "CASCADE", onUpdate: 'NO ACTION', cascade: true})
     @JoinTable({
       name: 'course_group',
       joinColumn: {
@@ -48,6 +48,6 @@ export class Course {
     })
     groups?: Group[];
 
-    @OneToMany(() => Task, (task) => task.course)
+    @OneToMany(() => Task, (task) => task.course, { onDelete: 'SET NULL'} )
     tasks: Task[]
 }
