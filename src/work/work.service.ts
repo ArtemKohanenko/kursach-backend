@@ -1,13 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { SendWorkDto, changeWorkStatusDto } from './dto/work.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { Work } from './work.entity';
 import { TaskService } from 'src/task/task.service';
 import { StudentService } from 'src/student/student.service';
 import { WorkStatus } from './type/WorkStatusEnum';
-import { error } from 'console';
-import { throwError } from 'rxjs';
 
 @Injectable()
 export class WorkService {
@@ -15,6 +13,7 @@ export class WorkService {
         @InjectRepository(Work)
         private workRepository: Repository<Work>,
         private studentService: StudentService,
+        private taskService: TaskService,
     )
     {}
 
@@ -39,12 +38,20 @@ export class WorkService {
         });
     }
 
-    async getTeacherViewingWork(teacherId: string): Promise<Work[] | undefined> {
-        return await this.workRepository.find({
+    async getTeacherViewingWork(teacherUserId: string) {
+        const tasks = await this.taskService.getTeacherTasksById(teacherUserId);
+        const taskIds = tasks.map(task => task.id)
+
+        const works = await this.workRepository.find({
             where: {
-                status: WorkStatus.viewing
+                status: WorkStatus.viewing,
+                task:{
+                    id: In(taskIds)
+                }
             }
-        });        
+        })
+
+        return works
     }
 
     async changeStatus(newStatus: changeWorkStatusDto) {        

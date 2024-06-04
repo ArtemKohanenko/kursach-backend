@@ -30,7 +30,7 @@ export class TaskService {
         const courses = user.student.group.courses;
         
         let tasks = [];
-        courses.forEach(course => {tasks.push(course.tasks)})
+        courses.forEach(course => {tasks.push(...course.tasks)})
 
         return tasks;
     }
@@ -40,7 +40,7 @@ export class TaskService {
         const courses = user.teacher.courses;
         
         let tasks = [];
-        courses.forEach(course => {tasks.push(course.tasks)})
+        courses.forEach(course => {tasks.push(...course.tasks)})
 
         return tasks;
     }
