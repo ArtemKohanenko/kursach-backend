@@ -5,7 +5,7 @@ import { Entity, Column, PrimaryColumn, ManyToOne, OneToMany, PrimaryGeneratedCo
 @Entity()
 export class Task {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   name: string;

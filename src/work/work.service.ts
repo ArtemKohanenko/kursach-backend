@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { SendWorkDto, changeWorkStatusDto } from './dto/work.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -11,16 +11,19 @@ export class WorkService {
     constructor(
         @InjectRepository(Work)
         private workRepository: Repository<Work>,
+        private studentService: StudentService,
     )
     {}
 
-    async createWork(workDto: SendWorkDto) {
-        const work = await this.workRepository.create({...workDto});
+    async createWork(workDto: SendWorkDto, studentId: string) {
+        const student = await this.studentService.findOneById(studentId)
+        const work = await this.workRepository.create({...workDto, student: student});
+        Logger.log(work)
         await this.workRepository.save(work);
 
         return { data: work };
     }
-    async findWorkById(id: number): Promise<Work | undefined> {
+    async findWorkById(id: string): Promise<Work | undefined> {
         return await this.workRepository.findOne({
             where: {
                 id: id

@@ -12,7 +12,7 @@ export class TaskService {
     )
     {}
 
-    async findOneById(id: number): Promise<Task | undefined> {
+    async findOneById(id: string): Promise<Task | undefined> {
         return await this.taskRepository.findOne({
             where: {
                 id: id

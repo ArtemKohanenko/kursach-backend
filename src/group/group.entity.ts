@@ -5,7 +5,7 @@ import { Entity, Column, PrimaryColumn, ManyToMany, OneToMany, PrimaryGeneratedC
 @Entity()
 export class Group {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   name: string;

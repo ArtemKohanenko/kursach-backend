@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Request } from '@nestjs/common';
 import { SendWorkDto, changeWorkStatusDto } from './dto/work.dto';
 import { WorkService } from './work.service';
 
@@ -7,8 +7,8 @@ export class WorkController {
     constructor(private workService: WorkService) {}
 
     @Post()
-    async sendWork(@Body() sendWorkDto: SendWorkDto) {
-        return await this.workService.createWork(sendWorkDto);
+    async sendMyWork(@Body() sendWorkDto: SendWorkDto, @Request() req) {
+        return await this.workService.createWork(sendWorkDto, req.sub);
     }
     
     @Post('changeStatus')

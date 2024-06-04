@@ -7,11 +7,9 @@ export class SendWorkDto{
     readonly data: string;
 
     readonly taskId: number
-
-    readonly studentId: number
 }
 
 export class changeWorkStatusDto{
     readonly status: WorkStatus;
-    readonly id: number;
+    readonly id: string;
 }

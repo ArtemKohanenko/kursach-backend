@@ -7,7 +7,7 @@ import { Entity, Column, PrimaryColumn, ManyToOne, OneToMany, PrimaryGeneratedCo
 @Entity()
 export class Student {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @ManyToOne(() => Group, (group) => group.students)
   group?: Group;

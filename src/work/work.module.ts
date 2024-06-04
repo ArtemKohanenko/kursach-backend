@@ -7,7 +7,7 @@ import { TaskModule } from 'src/task/task.module';
 import { StudentModule } from 'src/student/student.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Work])],
+    imports: [TypeOrmModule.forFeature([Work]), StudentModule],
     controllers: [WorkController],
     providers: [WorkService],
 })
