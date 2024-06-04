@@ -18,24 +18,32 @@ export class WorkController {
 
     @Roles(Role.student)
     @UseGuards(RolesGuard)
-    @Get()
+    @Get('student')
     async getMyWorks(@Request() req) {
         const works = await this.workService.findWorks(req.user.sub);
+        return { data: works }
+    }
+
+    @Roles(Role.teacher)
+    @UseGuards(RolesGuard)
+    @Get('teacher')
+    async getTeacherWorks(@Request() req) {
+        const works = await this.workService.getTeacherWorks(req.user.sub);
         return { data: works }
     }
     
     @Roles(Role.teacher)
     @UseGuards(RolesGuard)
-    @Post('changeStatus')
+    @Post('teacher/changeStatus')
     async changeWorkStatus(@Body() changeWorkStatus: changeWorkStatusDto) {
         return await this.workService.changeStatus(changeWorkStatus);
     }
 
     @Roles(Role.teacher)
     @UseGuards(RolesGuard)
-    @Get('getAllViewingWork')
+    @Get('teacher/getViewingWork')
     async getMyViewingWork(@Request() req) {
-        const works = await this.workService.getTeacherViewingWork(req.user.sub);
+        const works = await this.workService.getTeacherViewingWorks(req.user.sub);
         return { data: works }
     }
 }
