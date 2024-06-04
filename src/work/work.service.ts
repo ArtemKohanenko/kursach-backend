@@ -38,7 +38,22 @@ export class WorkService {
         });
     }
 
-    async getTeacherViewingWork(teacherUserId: string) {
+    async getTeacherWorks(teacherUserId: string) {
+        const tasks = await this.taskService.getTeacherTasksById(teacherUserId);
+        const taskIds = tasks.map(task => task.id)
+
+        const works = await this.workRepository.find({
+            where: {
+                task:{
+                    id: In(taskIds)
+                }
+            }
+        })
+
+        return works
+    }
+
+    async getTeacherViewingWorks(teacherUserId: string) {
         const tasks = await this.taskService.getTeacherTasksById(teacherUserId);
         const taskIds = tasks.map(task => task.id)
 
