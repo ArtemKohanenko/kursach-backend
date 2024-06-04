@@ -1,8 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
-
-const student_id1 = uuidv4()
-const student_id2 = uuidv4()
-const teacher_id1 = uuidv4()
+import { Role } from 'src/user/types/roles';
 
 export const COURSES_LIST = [
     {
@@ -32,10 +28,12 @@ export const USERS_LIST = [
     {
         name: 'Виктор Власов',
         password: 123,
+        roles: `${Role.teacher}`
     },
     {
         name: 'Фашист',
         password: 123,
+        roles: `${Role.student}`
     }
 ]
 

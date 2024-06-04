@@ -1,25 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Teacher } from './teacher.entity';
+import { Course } from './course.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class TeacherService {
+export class CourseService {
     constructor(
-        @InjectRepository(Teacher)
-        private teacherRepository: Repository<Teacher>
+        @InjectRepository(Course)
+        private courseRepository: Repository<Course>,
     )
     {}
     
     async findOneById(id: string) {
-        return await this.teacherRepository.findOne({
+        return await this.courseRepository.findOne({
             where: {
                 id: id
             },
             relations: {
-                courses: {
-                    tasks: true
-                }
+                teachers: true
             }
         });
     }
