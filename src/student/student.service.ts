@@ -11,7 +11,7 @@ export class StudentService {
     )
     {}
 
-    async findOneById(id: number): Promise<Student | undefined> {
+    async findOneById(id: string): Promise<Student | undefined> {
         return await this.studentRepository.findOne({
             where: {
                 id: id

@@ -5,7 +5,7 @@ import { Entity, Column, PrimaryColumn, ManyToMany, PrimaryGeneratedColumn } fro
 @Entity()
 export class Teacher {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @ManyToMany(
     () => Course,
