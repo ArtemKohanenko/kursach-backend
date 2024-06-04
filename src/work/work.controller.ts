@@ -8,7 +8,13 @@ export class WorkController {
 
     @Post()
     async sendMyWork(@Body() sendWorkDto: SendWorkDto, @Request() req) {
-        return await this.workService.createWork(sendWorkDto, req.sub);
+        return await this.workService.createWork(sendWorkDto, req.user.sub);
+    }
+
+    @Get()
+    async getMyWorks(@Request() req) {
+        const works = await this.workService.findWorks(req.user.sub);
+        return { data: works }
     }
     
     @Post('changeStatus')

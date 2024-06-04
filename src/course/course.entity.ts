@@ -51,4 +51,3 @@ export class Course {
     @OneToMany(() => Task, (task) => task.course)
     tasks: Task[]
 }
-

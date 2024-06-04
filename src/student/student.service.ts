@@ -15,6 +15,13 @@ export class StudentService {
         return await this.studentRepository.findOne({
             where: {
                 id: id
+            },
+            relations: {
+                group: {
+                    courses: {
+                        tasks: true
+                    }
+                }
             }
         });
     }

@@ -39,7 +39,20 @@ export class UserService {
             where: {
                 id
             },
-            relations: ['student', 'teacher']
+            relations: {
+                student: {
+                    group: {
+                        courses: {
+                            tasks: true
+                        }
+                    }
+                },
+                teacher: {
+                    courses: {
+                        tasks: true
+                    }
+                }
+            }
         });
     }
     

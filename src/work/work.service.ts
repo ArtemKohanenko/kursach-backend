@@ -18,17 +18,22 @@ export class WorkService {
     async createWork(workDto: SendWorkDto, studentId: string) {
         const student = await this.studentService.findOneById(studentId)
         const work = await this.workRepository.create({...workDto, student: student});
-        Logger.log(work)
         await this.workRepository.save(work);
 
         return { data: work };
     }
+
+    async findWorks(id: string) {
+        const student = await this.studentService.findOneById(id);
+        return student.works;
+    }
+
     async findWorkById(id: string): Promise<Work | undefined> {
         return await this.workRepository.findOne({
             where: {
                 id: id
             }
-        });        
+        });
     }
 
     async changeStatus(newStatus: changeWorkStatusDto) {        
