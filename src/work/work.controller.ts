@@ -24,7 +24,7 @@ export class WorkController {
     }
 
     @Get('getAllViewingWork')
-    async getAllViewingWork(@Body() status: WorkStatus) {
-        return await this.workService.getAllViewingWork(status);
+    async getMyViewingWork(@Body() status: WorkStatus) {
+        return await this.workService.getTeacherViewingWork(status);
     }
 }

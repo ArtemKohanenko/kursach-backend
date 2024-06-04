@@ -39,13 +39,10 @@ export class WorkService {
         });
     }
 
-    async getAllViewingWork(status: WorkStatus): Promise<Work[] | undefined> {
-        if (status != 'viewing'){
-            throwError;
-        }
+    async getTeacherViewingWork(teacherId: string): Promise<Work[] | undefined> {
         return await this.workRepository.find({
             where: {
-                status: status
+                status: WorkStatus.viewing
             }
         });        
     }
