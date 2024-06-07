@@ -9,7 +9,7 @@ export class Work {
   id: string;
 
   @Column()
-  comment: string;
+  comment?: string;
 
   @Column()
   data: string;

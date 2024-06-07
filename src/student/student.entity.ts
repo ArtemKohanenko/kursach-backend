@@ -13,5 +13,5 @@ export class Student {
   group?: Group;
 
   @OneToMany(() => Work, (work) => work.student)
-  works: Work[]
+  works?: Work[]
 }

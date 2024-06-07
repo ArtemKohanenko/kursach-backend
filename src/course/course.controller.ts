@@ -1,8 +1,8 @@
-import { Controller, Get, UseGuards, Request, Body, Post, Delete } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Body, Post, Delete, Param } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { Roles, RolesGuard } from 'src/user/role.guard';
 import { Role } from 'src/user/types/roles';
-import { CreateCourseDto, DeleteCourseDto } from './dto/course.dto';
+import { CreateCourseDto } from './dto/course.dto';
 
 @Controller('course')
 export class CourseController {
@@ -26,9 +26,9 @@ export class CourseController {
 
     @Roles(Role.teacher)
     @UseGuards(RolesGuard)
-    @Delete()
-    async deleteCourse(@Body() deleteCourseDto: DeleteCourseDto, @Request() req) {
-        const result = await this.courseService.deleteCourse(deleteCourseDto, req.user);
+    @Delete(':id')
+    async deleteCourse(@Param('id') id: string, @Request() req) {
+        const result = await this.courseService.deleteCourse(id, req.user);
         
         return result;
     }

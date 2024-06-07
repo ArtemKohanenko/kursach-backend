@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './course.entity';
 import { Repository } from 'typeorm';
 import { UserService } from 'src/user/user.service';
-import { CreateCourseDto, DeleteCourseDto } from './dto/course.dto';
+import { CreateCourseDto } from './dto/course.dto';
 import { TeacherService } from 'src/teacher/teacher.service';
 import { GroupService } from 'src/group/group.service';
 import { Role } from 'src/user/types/roles';
@@ -14,8 +14,6 @@ export class CourseService {
     constructor(
         @InjectRepository(Course)
         private courseRepository: Repository<Course>,
-        @InjectRepository(Task)
-        private taskRepository: Repository<Course>,
         private userService: UserService,
         private teacherService: TeacherService,
         private groupService: GroupService
@@ -53,14 +51,14 @@ export class CourseService {
         return course;
     }
 
-    async deleteCourse(deleteCourseDto: DeleteCourseDto, userContext) {
+    async deleteCourse(courseId: string, userContext) {
         const isAdmin = userContext.roles.split(',').includes(Role.admin)
         const user = await this.userService.findOneById(userContext.sub);
         const teacherId = user.teacher.id;
 
         const course = await this.courseRepository.findOne({
             where: {
-                id: deleteCourseDto.id
+                id: courseId
             },
             relations: {
                 teachers: true
@@ -71,7 +69,7 @@ export class CourseService {
 
             const result = await this.courseRepository.remove(course);
 
-            return result;
+            return HttpStatus.OK;
         }
         else {
             return HttpStatus.BAD_REQUEST;

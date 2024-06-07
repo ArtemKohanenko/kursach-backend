@@ -6,7 +6,3 @@ export class CreateCourseDto {
     
     groupIds: string[];
 }
-
-export class DeleteCourseDto {
-    readonly id: string;
-}

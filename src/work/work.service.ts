@@ -6,6 +6,7 @@ import { Work } from './work.entity';
 import { TaskService } from 'src/task/task.service';
 import { StudentService } from 'src/student/student.service';
 import { WorkStatus } from './type/WorkStatusEnum';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class WorkService {
@@ -14,20 +15,38 @@ export class WorkService {
         private workRepository: Repository<Work>,
         private studentService: StudentService,
         private taskService: TaskService,
+        private userService: UserService,
     )
     {}
 
-    async createWork(workDto: SendWorkDto, studentId: string) {
-        const student = await this.studentService.findOneById(studentId)
-        const work = await this.workRepository.create({...workDto, student: student});
+    async createWork(workDto: SendWorkDto, studentUserId: string) {
+        const user = await this.userService.findOneById(studentUserId);
+        const student = await this.studentService.findOneById(user.student.id);
+        const task = await this.taskService.findOneById(workDto.taskId);
+        const work = await this.workRepository.create({...workDto, student: student, task: task});
         await this.workRepository.save(work);
 
         return { data: work };
     }
 
     async findWorks(id: string) {
-        const student = await this.studentService.findOneById(id);
-        return student.works;
+        const user = await this.userService.findOneById(id);
+        const student = await this.studentService.findOneById(user.student.id);
+        const works = this.workRepository.find({
+            where: {
+                student
+            },
+            relations: {
+                task: {
+                    course: {
+                        teachers: {
+                            user: true
+                        }
+                    }
+                }
+            }
+        })
+        return works;
     }
 
     async findWorkById(id: string): Promise<Work | undefined> {

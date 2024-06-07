@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Request, UseGuards } from '@nestjs/common';
 import { TaskService } from './task.service';
-import { CreateTaskDto } from './dto/task.dto';
+import { CreateTaskDto, DeleteTaskDto } from './dto/task.dto';
 import { Roles, RolesGuard } from 'src/user/role.guard';
 import { Role } from 'src/user/types/roles';
 
@@ -31,5 +31,14 @@ export class TaskController {
     async createTask(@Body() createTaskDto: CreateTaskDto, @Request() req) {
         const task = await this.taskService.createTaskForCourse(createTaskDto, req.user.sub);
         return { data: task }
+    }
+
+    @Roles(Role.teacher)
+    @UseGuards(RolesGuard)
+    @Delete(':id')
+    async deleteTask(@Param('id') id: string, @Request() req) {
+        const result = await this.taskService.deleteTask(id, req.user);
+        
+        return { status: result };
     }
 }

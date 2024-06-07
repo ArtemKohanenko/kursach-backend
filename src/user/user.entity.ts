@@ -21,7 +21,7 @@ export class User {
   @JoinColumn()
   student?: Student;
 
-  @OneToOne(() => Teacher)
+  @OneToOne(() => Teacher, teacher => teacher.user)
   @JoinColumn()
   teacher?: Teacher;
 }

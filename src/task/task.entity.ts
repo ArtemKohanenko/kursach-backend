@@ -10,9 +10,12 @@ export class Task {
   @Column()
   name: string;
 
+  @Column()
+  comment: string;
+
   @ManyToOne(() => Course, (course) => course.tasks)
   course?: Course;
 
-  @OneToMany(() => Work, (work) => work.task)
+  @OneToMany(() => Work, (work) => work.task, { onDelete: 'SET NULL'})
   works: Work[]
 }

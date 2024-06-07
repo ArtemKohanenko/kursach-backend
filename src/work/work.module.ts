@@ -11,7 +11,7 @@ import { TeacherModule } from 'src/teacher/teacher.module';
 import { UserModule } from 'src/user/user.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Work, Task, Teacher]), StudentModule, TaskModule],
+    imports: [TypeOrmModule.forFeature([Work, Task, Teacher]), StudentModule, TaskModule, UserModule],
     controllers: [WorkController],
     providers: [WorkService],
     exports: [WorkService]
