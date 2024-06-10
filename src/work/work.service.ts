@@ -68,6 +68,11 @@ export class WorkService {
                 task:{
                     id: In(taskIds)
                 }
+            },
+            relations: {
+                student: {
+                    user: true
+                }
             }
         })
 

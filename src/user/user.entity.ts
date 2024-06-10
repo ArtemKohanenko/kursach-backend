@@ -17,8 +17,8 @@ export class User {
   @Column()
   roles: string;
 
-  @OneToOne(() => Student)
-  @JoinColumn({ name: 'studentId' })
+  @OneToOne(() => Student, student => student.user)
+  @JoinColumn()
   student?: Student;
 
   @Column({ nullable: true })
