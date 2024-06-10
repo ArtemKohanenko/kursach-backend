@@ -8,10 +8,12 @@ import { TeacherModule } from 'src/teacher/teacher.module';
 import { GroupModule } from 'src/group/group.module';
 import { Task } from 'src/task/task.entity';
 import { Teacher } from 'src/teacher/teacher.entity';
+import { StudentModule } from 'src/student/student.module';
+import { Group } from 'src/group/group.entity';
 
 @Module({
   controllers: [CourseController],
-  imports: [TypeOrmModule.forFeature([Course, Task, Teacher]), UserModule, TeacherModule, GroupModule],
+  imports: [TypeOrmModule.forFeature([Course, Task, Teacher, Group]), UserModule, TeacherModule, GroupModule, StudentModule],
   providers: [CourseService],
   exports: [CourseService]
 })

@@ -24,8 +24,8 @@ export class User {
   @Column({ nullable: true })
   studentId?: string;
 
-  @OneToOne(() => Teacher)
-  @JoinColumn({ name: 'teacherId' })
+  @OneToOne(() => Teacher, teacher => teacher.user)
+  @JoinColumn()
   teacher?: Teacher;
 
   @Column({ nullable: true })

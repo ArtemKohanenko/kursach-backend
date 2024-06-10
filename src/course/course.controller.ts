@@ -10,9 +10,9 @@ export class CourseController {
 
     @Roles(Role.teacher)
     @UseGuards(RolesGuard)
-    @Get()
+    @Get('teacher')
     async getMyCourses(@Request() req) {
-        const courses = await this.courseService.getCourses(req.user.sub);
+        const courses = await this.courseService.getTeacherCourses(req.user.sub);
         return { data: courses };
     }
 
@@ -31,5 +31,13 @@ export class CourseController {
         const result = await this.courseService.deleteCourse(deleteCourseDto, req.user);
         
         return result;
+    }
+
+    @Roles(Role.student)
+    @UseGuards(RolesGuard)
+    @Get('student')
+    async getStudentCourses(@Request() req) {
+        const courses = await this.courseService.getStudentCourses(req.user.sub);
+        return { data: courses };
     }
 }

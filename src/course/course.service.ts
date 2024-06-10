@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './course.entity';
 import { Repository } from 'typeorm';
@@ -9,6 +9,8 @@ import { GroupService } from 'src/group/group.service';
 import { Role } from 'src/user/types/roles';
 import { Task } from 'src/task/task.entity';
 import { Teacher } from 'src/teacher/teacher.entity';
+import { Group } from 'src/group/group.entity';
+import { StudentService } from 'src/student/student.service';
 
 @Injectable()
 export class CourseService {
@@ -17,11 +19,12 @@ export class CourseService {
         private courseRepository: Repository<Course>,
         @InjectRepository(Teacher)
         private teacherRepository: Repository<Teacher>,
-        @InjectRepository(Task)
-        private taskRepository: Repository<Course>,
+        @InjectRepository(Group)
+        private groupRepository: Repository<Group>,
         private userService: UserService,
         private teacherService: TeacherService,
-        private groupService: GroupService
+        private groupService: GroupService,
+        private studentService: StudentService
     )
     {}
     
@@ -33,7 +36,7 @@ export class CourseService {
         });
     }
 
-    async getCourses(teacherUserId: string) {
+    async getTeacherCourses(teacherUserId: string) {
         const user = await this.userService.findOneById(teacherUserId)
         const teacher = await this.teacherRepository.findOne({
             where: {
@@ -41,11 +44,32 @@ export class CourseService {
             },
             relations: {
                 courses: {
-                    groups: true
+                    groups: true,
+                    teachers: true
                 }
             }
         })
         const courses = teacher.courses;
+        
+        return courses;
+    }
+
+    async getStudentCourses(studentUserId: string) {
+        const user = await this.userService.findOneById(studentUserId);
+        const student = await this.studentService.findOneById(user.student.id);
+        const group = await this.groupRepository.findOne({
+            where: {
+                id: student.groupId
+            },
+            relations: {
+                courses: {
+                    teachers: {
+                        user: true
+                    }
+                }
+            }
+        })
+        const courses = group.courses;
         
         return courses;
     }

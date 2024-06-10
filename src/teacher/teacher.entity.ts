@@ -1,6 +1,6 @@
 import { Course } from 'src/course/course.entity';
 import { User } from 'src/user/user.entity';
-import { Entity, Column, PrimaryColumn, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, OneToOne, ManyToMany, PrimaryGeneratedColumn, Column, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Teacher {
@@ -13,4 +13,10 @@ export class Teacher {
     {onDelete: "CASCADE", onUpdate: 'NO ACTION' },
   )
   courses?: Course[];
+
+  @OneToOne(() => User, user => user.teacher)
+  user?: User;
+
+  @Column({ nullable: true })
+  userId?: string;
 }
