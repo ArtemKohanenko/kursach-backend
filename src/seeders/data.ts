@@ -46,10 +46,12 @@ export const STUDENTS_LIST = [
 
 export const TASKS_LIST = [
     {
-        name: 'Жим 100кг от груди'
+        name: 'Жим 100кг от груди',
+        comment: 'Коммент 1'
     },
     {
-        name: 'К 15 мая сделать ООАиП'
+        name: 'К 15 мая сделать ООАиП',
+        comment: 'comment2'
     }
 ]
 

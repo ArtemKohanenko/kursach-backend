@@ -8,12 +8,15 @@ import { TeacherService } from 'src/teacher/teacher.service';
 import { GroupService } from 'src/group/group.service';
 import { Role } from 'src/user/types/roles';
 import { Task } from 'src/task/task.entity';
+import { Teacher } from 'src/teacher/teacher.entity';
 
 @Injectable()
 export class CourseService {
     constructor(
         @InjectRepository(Course)
         private courseRepository: Repository<Course>,
+        @InjectRepository(Teacher)
+        private teacherRepository: Repository<Teacher>,
         @InjectRepository(Task)
         private taskRepository: Repository<Course>,
         private userService: UserService,
@@ -26,17 +29,25 @@ export class CourseService {
         return await this.courseRepository.findOne({
             where: {
                 id: id
-            },
-            relations: {
-                teachers: true
             }
         });
     }
 
     async getCourses(teacherUserId: string) {
-        const user = await this.userService.findOneById(teacherUserId);
+        const user = await this.userService.findOneById(teacherUserId)
+        const teacher = await this.teacherRepository.findOne({
+            where: {
+                id: user.teacher.id
+            },
+            relations: {
+                courses: {
+                    groups: true
+                }
+            }
+        })
+        const courses = teacher.courses;
         
-        return user.teacher.courses;
+        return courses;
     }
 
     async createCourse(createCourseDto: CreateCourseDto, teacherUserId: string) {
@@ -45,12 +56,12 @@ export class CourseService {
         delete createCourseDto.groupIds;
 
         const course = await this.courseRepository.create(createCourseDto);
-        await this.courseRepository.save(createCourseDto);
+        const courseRes = await this.courseRepository.save(course);
         
-        groupIds.forEach(async groupId => { await this.addGroupToCourse(course.id, groupId) });
-        await this.addTeacherToCourse(course.id, user.teacher.id);
+        groupIds.forEach(async groupId => { await this.addGroupToCourse(courseRes.id, groupId) });
+        await this.addTeacherToCourse(courseRes.id, user.teacher.id);
 
-        return course;
+        return courseRes;
     }
 
     async deleteCourse(deleteCourseDto: DeleteCourseDto, userContext) {
@@ -89,7 +100,7 @@ export class CourseService {
         });
         const teacher = await this.teacherService.findOneById(teacherId);
         
-        const newTeachers = course.teachers.concat([teacher]);
+        const newTeachers = [ ...course.teachers, teacher ];
         course.teachers = newTeachers;
         this.courseRepository.save(course);
     }
@@ -105,7 +116,7 @@ export class CourseService {
         });
         const group = await this.groupService.findOneById(groupId);
         
-        const newGroups = course.groups.concat([group]);
+        const newGroups = [...course.groups, group];
         course.groups = newGroups;
         this.courseRepository.save(course);
     }

@@ -4,7 +4,7 @@ import { WorkStatus } from "../type/WorkStatusEnum";
 export class SendWorkDto{
     readonly comment: string;
     readonly data: string;
-    readonly taskId: number;
+    readonly taskId: string;
 }
 
 // export class GetWorksDto{        пока не используется

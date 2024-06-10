@@ -18,5 +18,5 @@ export class Group {
   courses?: Course[];
 
   @OneToMany(() => Student, (student) => student.group, {onDelete: "CASCADE"})
-    students: Student[]
+  students: Student[]
 }

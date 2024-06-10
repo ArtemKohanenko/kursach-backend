@@ -40,18 +40,8 @@ export class UserService {
                 id
             },
             relations: {
-                student: {
-                    group: {
-                        courses: {
-                            tasks: true
-                        }
-                    }
-                },
-                teacher: {
-                    courses: {
-                        tasks: true
-                    }
-                }
+                student: true,
+                teacher: true
             }
         });
     }

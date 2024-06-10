@@ -18,34 +18,14 @@ export class Course {
     () => Teacher, 
     teacher => teacher.courses, 
     {onDelete: "CASCADE", onUpdate: 'NO ACTION', cascade: true })
-    @JoinTable({
-      name: 'course_teacher',
-      joinColumn: {
-        name: 'courseId',
-        referencedColumnName: 'id',
-      },
-      inverseJoinColumn: {
-        name: 'teacherId',
-        referencedColumnName: 'id',
-      },
-    })
+    @JoinTable()
     teachers?: Teacher[];
 
   @ManyToMany(
     () => Group, 
     group => group.courses, 
     {onDelete: "CASCADE", onUpdate: 'NO ACTION', cascade: true})
-    @JoinTable({
-      name: 'course_group',
-      joinColumn: {
-        name: 'courseId',
-        referencedColumnName: 'id',
-      },
-      inverseJoinColumn: {
-        name: 'groupId',
-        referencedColumnName: 'id',
-      },
-    })
+    @JoinTable()
     groups?: Group[];
 
     @OneToMany(() => Task, (task) => task.course, { onDelete: 'SET NULL'} )

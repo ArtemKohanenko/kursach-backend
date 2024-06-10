@@ -9,9 +9,10 @@ import { Teacher } from 'src/teacher/teacher.entity';
 import { Task } from 'src/task/task.entity';
 import { TeacherModule } from 'src/teacher/teacher.module';
 import { UserModule } from 'src/user/user.module';
+import { User } from 'src/user/user.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Work, Task, Teacher]), StudentModule, TaskModule],
+    imports: [TypeOrmModule.forFeature([Work, Task, Teacher, User]), StudentModule, TaskModule],
     controllers: [WorkController],
     providers: [WorkService],
     exports: [WorkService]

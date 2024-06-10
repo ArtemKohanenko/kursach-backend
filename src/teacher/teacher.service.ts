@@ -15,11 +15,6 @@ export class TeacherService {
         return await this.teacherRepository.findOne({
             where: {
                 id: id
-            },
-            relations: {
-                courses: {
-                    tasks: true
-                }
             }
         });
     }

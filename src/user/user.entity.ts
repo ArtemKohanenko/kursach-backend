@@ -18,10 +18,16 @@ export class User {
   roles: string;
 
   @OneToOne(() => Student)
-  @JoinColumn()
+  @JoinColumn({ name: 'studentId' })
   student?: Student;
 
+  @Column({ nullable: true })
+  studentId?: string;
+
   @OneToOne(() => Teacher)
-  @JoinColumn()
+  @JoinColumn({ name: 'teacherId' })
   teacher?: Teacher;
+
+  @Column({ nullable: true })
+  teacherId?: string;
 }
