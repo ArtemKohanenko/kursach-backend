@@ -31,7 +31,7 @@ export const USERS_LIST = [
         roles: `${Role.teacher}`
     },
     {
-        name: 'Фашист',
+        name: 'Поменяй Потом Имя',
         password: 123,
         roles: `${Role.student}`
     }
